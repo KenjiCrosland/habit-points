@@ -22,6 +22,7 @@ habitsRouter.get('/habits/:id', function(req, res) {
 
 habitsRouter.post('/habits', bodyParser.json(), function(req, res) {
   var newHabit = new Habit(req.body);
+  newHabit.startDate = Date.now();
   newHabit.save(function(err, data) {
     if (err) return handleServerError(err, res);
     res.json(data);
