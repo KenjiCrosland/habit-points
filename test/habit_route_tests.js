@@ -36,7 +36,7 @@ describe('the habit routes', function() {
   describe('habit routes', function() {
     var testHabit2;
     before(function(done) {
-      (new Habit({ name: 'Floss your teeth', pointValue: 2, bonusInterval: 'Daily' })
+      (new Habit({ name: 'Floss your teeth', pointValue: 2, bonusInterval: 'day' })
         .save(function(err, data){
           testHabit2 = data;
           done();
@@ -96,7 +96,7 @@ describe('the habit routes', function() {
       var testHabit;
 
       before(function(done) {
-        (new Habit({ name: 'Drink a glass of water', pointValue: 1, bonusInterval: 'Daily' })
+        (new Habit({ name: 'Drink a glass of water', pointValue: 1, bonusInterval: 'day' })
           .save(function(err, data){
             //expect(err).to.eql(null);
             testHabit = data;
@@ -119,9 +119,8 @@ describe('the habit routes', function() {
 
     describe('a DELETE request', function(){
      var testHabit;
-
       before(function(done) {
-        (new Habit({ name: 'Drink a glass of water', pointValue: 1, bonusInterval: 'Daily' })
+        (new Habit({ name: 'Drink a glass of water', pointValue: 1, bonusInterval: 'day' })
           .save(function(err, data){
             //expect(err).to.eql(null);
             testHabit = data;
@@ -138,8 +137,5 @@ describe('the habit routes', function() {
           });
         });
     });
-
-
-
   });
 })

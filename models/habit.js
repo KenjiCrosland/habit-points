@@ -6,7 +6,7 @@ var habitSchema = new mongoose.Schema({
   startDate: Date,
   endDate: Date,
   pointValue: Number,
-  //Bonus interval: Daily, Weekly, Monthly
+  //Bonus interval: day, week, month
   bonusInterval: String,
   bonusFrequency: Number,
   intervals: [{
