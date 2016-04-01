@@ -19,10 +19,14 @@ completionsRouter.post('/completions/:id', bodyParser.json(), function(req, res)
       });
     }
     if (data.intervals.length){
-    data.intervals[data.intervals.length - 1].completions.push({
-      completedOn: habitData.completedOn,
-      pointValue: data.pointValue
-    });
+      data.intervals[data.intervals.length - 1].completions.push({
+        completedOn: habitData.completedOn,
+        pointValue: data.pointValue
+      });
+      if(data.intervals[data.intervals.length - 1].completions.length === data.bonusFrequency) {
+        data.intervals[data.intervals.length - 1].allComplete = true;
+        //Should create a new interval?
+      }
     }
     data.save()
     res.json({msg: 'Update successful!'});
