@@ -77,7 +77,7 @@ describe('completion POST routes', function(){
   });
 
     it('creates a new interval if the completion falls outside the interval start and interval end timestamps', function(){
-      chai.request('localhost:3000')
+      return chai.request('localhost:3000')
       .post('/api/completions/' + testHabit._id)
       .send({completedOn: moment(new Date()).add(2, 'days').toDate()})
       .then(function() {
@@ -89,7 +89,7 @@ describe('completion POST routes', function(){
     });
 
     it('does NOT create a new interval if the completion falls within the interval start and interval end timestamps', function(){
-      chai.request('localhost:3000')
+      return chai.request('localhost:3000')
       .post('/api/completions/' + testHabit._id)
       .send({completedOn: Date.now()})
       .then(function(res) {
@@ -111,7 +111,7 @@ describe('completion POST routes', function(){
         .then(function(){
           return Habit.findOne({'_id': testHabit._id})
           .then(function(habit){
-            //TODO: Assertion about the allcomplete attribute
+            expect(habit.intervals[habit.intervals.length - 1].allComplete).to.equal(true);
           })
       });
     });
