@@ -112,10 +112,29 @@ describe('completion POST routes', function(){
           return Habit.findOne({'_id': testHabit._id})
           .then(function(habit){
             expect(habit.intervals[habit.intervals.length - 1].allComplete).to.equal(true);
-          })
+          });
+        })
       });
     });
+
+    it('creates a new interval if the allComplete attribute is true', function(){
+      return Habit.findOne({'_id': testHabit._id})
+      .then(function(habit){
+        habit.intervals[habit.intervals.length - 1].allComplete = true;
+        return habit.save()
+        .then(function(habit){
+          return chai.request('localhost:3000')
+          .post('/api/completions/' + habit._id)
+          .send({completedOn: Date.now})
+          .then(function(){
+            return Habit.findOne({'_id': habit._id})
+            .then(function(habit){
+              expect(habit.intervals.length).to.equal(2);
+            });
+          });
+        });
+      });
+    });
+
   });
 });
-});
-

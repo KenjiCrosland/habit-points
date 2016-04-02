@@ -1,0 +1,81 @@
+MVP:
+
+- Create a Habit
+- Completions
+- A screen that shows how close I am to achieving my monthly goal
+- An Angular Client
+- An ionic client
+
+Filter (TODO habits vs completed habits)
+
+A Day
+UserId: current_user.id
+Start date: Date
+End date: Date
+PointGoal: Monthly Goal - Tiered (Calculated based on number of days left)
+PointsAchieved: Number
+GoalReached: Boolean
+
+A Week
+UserId: current_user.id
+Start date: Date
+End date: Date
+PointGoal: Number
+PointsAchieved: Number
+GoalReached: Boolean
+
+A Month
+UserId: current_user.id
+Start date: Date
+End date: Date
+pointGoal: number
+
+—May want to organize all day month, year schema into a User model. The user has a goal, badges, habits, etc.
+
+A Habit
+UserId: current_user.id
+StartDate: Date
+EndDate: Date (default is null)
+Paused: Boolean
+An array of habit completions for the time period:
+[ { startTime: Date, endTime: Date, allComplete: Boolean,
+Completion Array: [ {completed on: Date, pointValue: Number}, {completedOn: Date, pointValue: Number}, null, null, null ] },
+{ Day: Date,
+Completion Array: [ [{}] ] }
+When we post a new completion for a habit, if there is not a day object create a new completion array for that day
+
+Creating a New Habit
+User Gives a Habit Name
+User Gives a Habit Interval
+User Gives a Habit Frequency
+User Gives a Habit Point Value
+User Gives a Habit Description
+
+Editing a Habit
+User Changes a Habit Name
+User Changes Point Value (Point Value for each completion Changes - It will change the point value for all completions in the current period. Needs a confirmation box)
+User Changes Habit Frequency  (Completion Array Length will Change)
+User Changes Habit Interval (Start Time and End Time of an array will change)
+User Changes Description
+
+A Day Screen
+Get all the habits created for the current time period (A GET Request with all habits without a paused flag)
+Get all habit completions in the time current time period period from the Habit (Based on the Interval String).
+Populate each habit row and checkbox based on which ones are not null (With a check on start time and end time).
+Get the daily goal number.
+When daily goal number is reached, add a point bonus.
+42%
+A Habit Completion
+Push to the array of habit completions for today’s timestamp (Find the completion array by date)
+If it is a weekly goal, compare the timestamps to a one week period
+If it is a monthly goal, compare the timestamps to a one month period (starting at the beginning of the month).
+If an array doesn’t exist, create a new array and push the date.
+
+A Habit Stats Screen
+Populated rows/view based on the timestamp for each array
+Show days completed/Not Completed
+If interval changes from weekly to daily display blocks will show all completed habits
+
+A Goals Tab:
+Show a calendar view completed days (Based on a Goal Reached Boolean):
+Show the monthly goal:

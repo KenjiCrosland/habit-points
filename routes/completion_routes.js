@@ -10,22 +10,23 @@ completionsRouter.post('/completions/:id', bodyParser.json(), function(req, res)
   var habitData = req.body;
   Habit.findOne({_id: req.params.id}, function(err, data) {
     if (err) return handleServerError(err, res);
-    if (!data.intervals.length || moment(data.intervals[data.intervals.length - 1].intervalEnd).isBefore(habitData.completedOn)){
+    if (!data.intervals.length ||
+     moment(data.intervals[data.intervals.length - 1].intervalEnd).isBefore(habitData.completedOn) ||
+     data.intervals[data.intervals.length - 1].allComplete === true){
       data.intervals.push({
         intervalStart: moment().startOf(data.bonusInterval).toDate(),
         intervalEnd:moment().endOf(data.bonusInterval).toDate(),
         allComplete: false,
         completions:[]
       });
-    }
-    if (data.intervals.length){
-      data.intervals[data.intervals.length - 1].completions.push({
-        completedOn: habitData.completedOn,
-        pointValue: data.pointValue
-      });
-      if(data.intervals[data.intervals.length - 1].completions.length === data.bonusFrequency) {
-        data.intervals[data.intervals.length - 1].allComplete = true;
-        //Should create a new interval?
+  }
+  if (data.intervals.length){
+    data.intervals[data.intervals.length - 1].completions.push({
+      completedOn: habitData.completedOn,
+      pointValue: data.pointValue
+    });
+    if(data.intervals[data.intervals.length - 1].completions.length === data.bonusFrequency) {
+      data.intervals[data.intervals.length - 1].allComplete = true;
       }
     }
     data.save()
