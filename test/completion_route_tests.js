@@ -4,7 +4,7 @@ chai.use(chaihttp);
 var expect = chai.expect;
 var moment = require('moment');
 
-process.env.MONGOLAB_URI = 'mongodb://localhost/habitpoint_test';
+process.env.MONGOLAB_URI = 'mongodb://localhost/habitpoints_test';
 require (__dirname + '/../server');
 var mongoose = require('mongoose');
 var Habit = require(__dirname + '/../models/habit');
@@ -13,7 +13,7 @@ describe('completion POST routes', function(){
   var testHabit;
 
   before(function(done){
-    (new Habit({ name: 'Drink a glass of water', pointValue: 1, bonusInterval: 'day' })
+    (new Habit({ name: 'Drink a glass of water', pointValue: 1, bonusInterval: 'day', bonusFrequency: 6 })
       .save(function(err, data){
         testHabit = data;
         done();
@@ -23,7 +23,7 @@ describe('completion POST routes', function(){
   after(function (done) {
     mongoose.connection.db.dropDatabase(function() {
       done();
-    });
+   });
   });
 
   it('saves a habit to the database', function(done) {

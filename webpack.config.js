@@ -7,7 +7,6 @@ var APP_DIR = path.resolve(__dirname, 'app');
 var config = {
 	entry: APP_DIR + '/js/main.js',
 	output: {
-		path: BUILD_DIR,
 		filename: 'bundle.js'
 	},
 	module: {
@@ -18,7 +17,7 @@ var config = {
 			loader: 'babel'
 		}
 	]
-}
+}	
 };
 
 module.exports = config;

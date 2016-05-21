@@ -8,12 +8,12 @@ gulp.task('static:dev', function(){
 
 gulp.task('webpack:dev', function(){
 	gulp.src('./app/js/main.js')
-	.pipe(webpack({
-		output: {
-			filename: 'bundle.js'
-		}
-	}))
+	.pipe(webpack(require('./webpack.config.js')))
 	.pipe(gulp.dest('build/'))
 });
 
+gulp.task('watch', function(){
+	gulp.watch('./app/js/**/*.js', ['build:dev']);
+	gulp.watch('app/**/*.html', ['static:dev']);
+});
 gulp.task('build:dev', ['webpack:dev', 'static:dev']);
